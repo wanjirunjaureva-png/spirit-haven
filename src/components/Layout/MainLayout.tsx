@@ -6,27 +6,26 @@ import { Footer } from "./Footer";
 import { MiniPlayer } from "./MiniPlayer";
 
 export const MainLayout = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Backdrop for mobile */}
-      {sidebarOpen && !sidebarCollapsed && (
+      {/* Backdrop */}
+      {sidebarOpen && (
         <div 
-          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-30 lg:hidden"
+          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-30 transition-opacity duration-500 ease-in-out"
           onClick={() => setSidebarOpen(false)}
         />
       )}
       
       <Sidebar 
-        isCollapsed={sidebarCollapsed} 
+        isCollapsed={false} 
         isOpen={sidebarOpen}
-        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+        onToggle={() => {}}
         onClose={() => setSidebarOpen(false)}
       />
       <Header 
-        sidebarCollapsed={sidebarCollapsed}
+        sidebarCollapsed={false}
         onMenuClick={() => setSidebarOpen(true)}
       />
       

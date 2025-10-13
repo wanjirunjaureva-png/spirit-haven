@@ -10,8 +10,7 @@ import {
   FileText, 
   Settings, 
   LogOut,
-  ChevronLeft,
-  ChevronRight
+  X
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -44,26 +43,26 @@ export const Sidebar = ({ isCollapsed, isOpen, onToggle, onClose }: SidebarProps
   return (
     <aside
       className={cn(
-        "fixed left-0 top-0 h-screen bg-card/80 backdrop-blur-glass border-r border-border transition-all duration-300 z-40 shadow-soft",
-        isCollapsed ? "w-16" : "w-64",
-        !isOpen && "-translate-x-full lg:translate-x-0"
+        "fixed left-0 top-0 h-screen bg-card/80 backdrop-blur-glass border-r border-border z-40 shadow-soft",
+        "transition-transform duration-500 ease-in-out",
+        "w-64",
+        !isOpen && "-translate-x-full"
       )}
     >
       <div className="flex flex-col h-full">
         {/* Logo */}
         <div className="p-4 border-b border-border flex items-center justify-between">
-          {!isCollapsed && (
-            <h1 className="text-xl font-bold bg-gradient-spiritual bg-clip-text text-transparent">
-              FaithApp
-            </h1>
-          )}
+          <h1 className="text-xl font-bold bg-gradient-spiritual bg-clip-text text-transparent">
+            FaithApp
+          </h1>
           <Button
             variant="ghost"
             size="icon"
-            onClick={onToggle}
+            onClick={onClose}
             className="hover:bg-secondary/50"
+            aria-label="Close sidebar"
           >
-            {isCollapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
+            <X className="h-5 w-5" />
           </Button>
         </div>
 
@@ -76,14 +75,15 @@ export const Sidebar = ({ isCollapsed, isOpen, onToggle, onClose }: SidebarProps
               onClick={() => onClose()}
               className={({ isActive }) =>
                 cn(
-                  "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all",
+                  "flex items-center gap-3 px-3 py-2.5 rounded-lg",
+                  "transition-all duration-300 ease-in-out",
                   "hover:bg-secondary/50 hover:shadow-soft",
                   isActive && "bg-primary text-primary-foreground shadow-glow"
                 )
               }
             >
               <item.icon className="h-5 w-5 flex-shrink-0" />
-              {!isCollapsed && <span className="text-sm font-medium">{item.label}</span>}
+              <span className="text-sm font-medium">{item.label}</span>
             </NavLink>
           ))}
         </nav>
@@ -92,10 +92,10 @@ export const Sidebar = ({ isCollapsed, isOpen, onToggle, onClose }: SidebarProps
         <div className="p-2 border-t border-border">
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg w-full transition-all hover:bg-destructive/10 hover:text-destructive"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg w-full transition-all duration-300 ease-in-out hover:bg-destructive/10 hover:text-destructive"
           >
             <LogOut className="h-5 w-5 flex-shrink-0" />
-            {!isCollapsed && <span className="text-sm font-medium">Logout</span>}
+            <span className="text-sm font-medium">Logout</span>
           </button>
         </div>
       </div>
