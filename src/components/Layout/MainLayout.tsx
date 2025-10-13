@@ -7,23 +7,37 @@ import { MiniPlayer } from "./MiniPlayer";
 
 export const MainLayout = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
     <div className="min-h-screen bg-background">
-      <Sidebar isCollapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} />
-      <Header sidebarCollapsed={sidebarCollapsed} />
+      {/* Backdrop for mobile */}
+      {sidebarOpen && !sidebarCollapsed && (
+        <div 
+          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-30 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
       
-      <main
-        className="pt-16 pb-32 transition-all duration-300 animate-fade-in"
-        style={{ marginLeft: sidebarCollapsed ? "4rem" : "16rem" }}
-      >
+      <Sidebar 
+        isCollapsed={sidebarCollapsed} 
+        isOpen={sidebarOpen}
+        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+        onClose={() => setSidebarOpen(false)}
+      />
+      <Header 
+        sidebarCollapsed={sidebarCollapsed}
+        onMenuClick={() => setSidebarOpen(true)}
+      />
+      
+      <main className="pt-16 pb-32 transition-all duration-300 animate-fade-in">
         <div className="p-6">
           <Outlet />
         </div>
       </main>
 
-      <Footer sidebarCollapsed={sidebarCollapsed} />
-      <MiniPlayer sidebarCollapsed={sidebarCollapsed} />
+      <Footer />
+      <MiniPlayer />
     </div>
   );
 };

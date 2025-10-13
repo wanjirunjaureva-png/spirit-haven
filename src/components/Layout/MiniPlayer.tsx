@@ -3,19 +3,12 @@ import { Play, Pause, SkipBack, SkipForward, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 
-interface MiniPlayerProps {
-  sidebarCollapsed: boolean;
-}
-
-export const MiniPlayer = ({ sidebarCollapsed }: MiniPlayerProps) => {
+export const MiniPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState([70]);
 
   return (
-    <div
-      className="fixed bottom-0 right-0 h-20 bg-card/95 backdrop-blur-glass border-t border-border z-30 shadow-glow transition-all duration-300"
-      style={{ left: sidebarCollapsed ? "4rem" : "16rem" }}
-    >
+    <div className="fixed bottom-0 left-0 right-0 h-20 bg-card/95 backdrop-blur-glass border-t border-border z-10 shadow-glow">
       <div className="h-full px-6 flex items-center justify-between gap-4">
         {/* Track info */}
         <div className="flex items-center gap-3 flex-1 min-w-0">

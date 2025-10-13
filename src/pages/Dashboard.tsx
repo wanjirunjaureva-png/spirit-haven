@@ -2,13 +2,78 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { BookOpen, Clock, Video, Calendar, MessageSquare, TrendingUp } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+
+const upcomingEvents = [
+  {
+    title: "Easter Celebration Service",
+    date: "April 20, 2025",
+    time: "10:00 AM",
+    image: "https://images.unsplash.com/photo-1438032005730-c779502df39b?w=800&h=400&fit=crop"
+  },
+  {
+    title: "Youth Leadership Conference",
+    date: "May 15, 2025",
+    time: "9:00 AM",
+    image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&h=400&fit=crop"
+  },
+  {
+    title: "Summer Bible Camp",
+    date: "June 10-15, 2025",
+    time: "All Day",
+    image: "https://images.unsplash.com/photo-1478147427282-58a87a120781?w=800&h=400&fit=crop"
+  },
+  {
+    title: "Worship Night",
+    date: "July 8, 2025",
+    time: "7:00 PM",
+    image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=800&h=400&fit=crop"
+  }
+];
 
 const Dashboard = () => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
         <p className="text-muted-foreground">Your spiritual journey at a glance</p>
+      </div>
+
+      {/* Event Carousel */}
+      <div className="relative">
+        <h2 className="text-xl font-semibold mb-4">Upcoming Events</h2>
+        <Carousel
+          opts={{ align: "start", loop: true }}
+          plugins={[Autoplay({ delay: 4000 })]}
+          className="w-full"
+        >
+          <CarouselContent>
+            {upcomingEvents.map((event, index) => (
+              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                <Card className="overflow-hidden bg-card/80 backdrop-blur-glass border-border shadow-soft hover:shadow-glow transition-all">
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src={event.image} 
+                      alt={event.title}
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <h3 className="text-lg font-bold text-white mb-1">{event.title}</h3>
+                      <p className="text-sm text-white/80">{event.date} • {event.time}</p>
+                    </div>
+                  </div>
+                  <CardContent className="p-4">
+                    <Button size="sm" className="w-full">Learn More</Button>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-2" />
+          <CarouselNext className="right-2" />
+        </Carousel>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

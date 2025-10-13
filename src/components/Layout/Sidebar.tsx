@@ -30,10 +30,12 @@ const navItems = [
 
 interface SidebarProps {
   isCollapsed: boolean;
+  isOpen: boolean;
   onToggle: () => void;
+  onClose: () => void;
 }
 
-export const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
+export const Sidebar = ({ isCollapsed, isOpen, onToggle, onClose }: SidebarProps) => {
   const handleLogout = () => {
     console.log("Logging out...");
     window.location.href = "/auth";
@@ -43,7 +45,8 @@ export const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
     <aside
       className={cn(
         "fixed left-0 top-0 h-screen bg-card/80 backdrop-blur-glass border-r border-border transition-all duration-300 z-40 shadow-soft",
-        isCollapsed ? "w-16" : "w-64"
+        isCollapsed ? "w-16" : "w-64",
+        !isOpen && "-translate-x-full lg:translate-x-0"
       )}
     >
       <div className="flex flex-col h-full">
@@ -70,6 +73,7 @@ export const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
             <NavLink
               key={item.path}
               to={item.path}
+              onClick={() => onClose()}
               className={({ isActive }) =>
                 cn(
                   "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all",
