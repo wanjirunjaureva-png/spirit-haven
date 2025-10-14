@@ -4,6 +4,7 @@ import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { MiniPlayer } from "./MiniPlayer";
+import { ScrollToTop } from "./ScrollToTop";
 
 export const MainLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -35,8 +36,9 @@ export const MainLayout = () => {
         </div>
       </main>
 
-      <Footer />
       <MiniPlayer />
+      <Footer />
+      <ScrollToTop />
     </div>
   );
 };
