@@ -19,7 +19,8 @@ export const Header = ({ sidebarCollapsed, onMenuClick }: HeaderProps) => {
             variant="ghost"
             size="icon"
             onClick={onMenuClick}
-            className="lg:hidden hover:bg-secondary/50"
+            className="hover:bg-secondary/50"
+            aria-label="Open menu"
           >
             <Menu className="h-5 w-5" />
           </Button>
