@@ -3,132 +3,398 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import { CheckCircle2, Loader2 } from "lucide-react";
 
 const Auth = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<"login" | "signup">("login");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [focusedInput, setFocusedInput] = useState<string | null>(null);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Mock authentication
     setTimeout(() => {
-      toast.success("Welcome back!");
-      navigate("/");
       setIsLoading(false);
-    }, 1000);
+      setShowSuccessModal(true);
+      setTimeout(() => {
+        setShowSuccessModal(false);
+        navigate("/");
+      }, 2000);
+    }, 1500);
   };
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Mock signup
     setTimeout(() => {
-      toast.success("Account created! Welcome to FaithApp.");
-      navigate("/");
       setIsLoading(false);
-    }, 1000);
+      setShowSuccessModal(true);
+      setTimeout(() => {
+        setShowSuccessModal(false);
+        navigate("/");
+      }, 2000);
+    }, 1500);
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-auth-bg flex items-center justify-center p-4">
+      {/* Animated Background Particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-2 h-2 bg-accent/30 rounded-full blur-sm animate-particle-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 8}s`,
+              animationDuration: `${8 + Math.random() * 4}s`,
+              // @ts-ignore
+              '--tx': `${(Math.random() - 0.5) * 200}px`,
+              '--ty': `${-100 - Math.random() * 200}px`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Blurred Bokeh Texture Overlay */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-primary/30 rounded-full blur-[120px] animate-float" />
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent/30 rounded-full blur-[120px] animate-float" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-navy/30 rounded-full blur-[120px] animate-float" style={{ animationDelay: '4s' }} />
+      </div>
+
+      <div className="w-full max-w-md relative z-10 animate-fade-in">
+        {/* Hero Text */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-spiritual bg-clip-text text-transparent mb-2">
+          <h1 className="text-5xl md:text-6xl font-display font-bold bg-gradient-violet-gold bg-clip-text text-transparent mb-3 drop-shadow-lg animate-pulse-glow">
             FaithApp
           </h1>
-          <p className="text-muted-foreground">Grow in Faith. Connect in Spirit.</p>
+          <p className="text-lg text-foreground/80 tracking-wide font-light">
+            Grow in Faith. Connect in Spirit.
+          </p>
         </div>
 
-        <Card className="bg-card/80 backdrop-blur-glass border-border shadow-soft">
-          <CardHeader>
-            <CardTitle>Welcome</CardTitle>
-            <CardDescription>Sign in or create an account to continue</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Tabs defaultValue="login" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="login">Login</TabsTrigger>
-                <TabsTrigger value="signup">Sign Up</TabsTrigger>
-              </TabsList>
+        {/* Glass Morphic Card */}
+        <Card className="backdrop-blur-glass border-2 relative overflow-hidden group hover:shadow-[var(--border-glow)] transition-all duration-500"
+          style={{
+            background: 'rgba(255, 255, 255, 0.05)',
+            borderColor: 'rgba(180, 140, 255, 0.3)',
+            boxShadow: 'var(--shadow-inner), 0 8px 32px rgba(0, 0, 0, 0.4)',
+          }}
+        >
+          {/* Animated Border Glow */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+          
+          <CardContent className="p-8 relative z-10">
+            {/* Custom Tabs */}
+            <div className="relative mb-8">
+              <div className="flex gap-2 bg-muted/30 p-1 rounded-lg backdrop-blur-sm">
+                <button
+                  onClick={() => setActiveTab("login")}
+                  className={`flex-1 py-3 px-4 rounded-md font-medium transition-all duration-300 ${
+                    activeTab === "login"
+                      ? "bg-gradient-violet-gold text-white shadow-lg"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  }`}
+                >
+                  Login
+                </button>
+                <button
+                  onClick={() => setActiveTab("signup")}
+                  className={`flex-1 py-3 px-4 rounded-md font-medium transition-all duration-300 ${
+                    activeTab === "signup"
+                      ? "bg-gradient-violet-gold text-white shadow-lg"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  }`}
+                >
+                  Sign Up
+                </button>
+              </div>
+            </div>
 
-              <TabsContent value="login">
-                <form onSubmit={handleLogin} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="login-email">Email</Label>
-                    <Input
-                      id="login-email"
-                      type="email"
-                      placeholder="your@email.com"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="login-password">Password</Label>
-                    <Input
-                      id="login-password"
-                      type="password"
-                      placeholder="••••••••"
-                      required
-                    />
-                  </div>
-                  <Button
-                    type="submit"
-                    className="w-full bg-primary hover:bg-primary/90 shadow-glow"
-                    disabled={isLoading}
+            {activeTab === "login" ? (
+              <form onSubmit={handleLogin} className="space-y-6">
+                {/* Email Input with Floating Label */}
+                <div className="relative">
+                  <Input
+                    id="login-email"
+                    type="email"
+                    placeholder=" "
+                    required
+                    onFocus={() => setFocusedInput("login-email")}
+                    onBlur={() => setFocusedInput(null)}
+                    className={`peer h-12 bg-background/50 backdrop-blur-sm border-2 transition-all duration-300 ${
+                      focusedInput === "login-email"
+                        ? "border-accent ring-4 ring-accent/20 scale-[1.02] shadow-[0_0_20px_rgba(234,179,8,0.3)]"
+                        : "border-input hover:border-primary/50"
+                    }`}
+                  />
+                  <Label
+                    htmlFor="login-email"
+                    className={`absolute left-3 transition-all duration-300 pointer-events-none ${
+                      focusedInput === "login-email"
+                        ? "-top-2.5 text-xs bg-card px-2 text-accent font-medium"
+                        : "top-3 text-sm text-muted-foreground peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:bg-card peer-[:not(:placeholder-shown)]:px-2"
+                    }`}
                   >
-                    {isLoading ? "Signing in..." : "Sign In"}
-                  </Button>
-                </form>
-              </TabsContent>
+                    Email Address
+                  </Label>
+                </div>
 
-              <TabsContent value="signup">
-                <form onSubmit={handleSignup} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-name">Name</Label>
-                    <Input
-                      id="signup-name"
-                      type="text"
-                      placeholder="John Doe"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-email">Email</Label>
-                    <Input
-                      id="signup-email"
-                      type="email"
-                      placeholder="your@email.com"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-password">Password</Label>
-                    <Input
-                      id="signup-password"
-                      type="password"
-                      placeholder="••••••••"
-                      required
-                    />
-                  </div>
-                  <Button
-                    type="submit"
-                    className="w-full bg-primary hover:bg-primary/90 shadow-glow"
-                    disabled={isLoading}
+                {/* Password Input with Floating Label */}
+                <div className="relative">
+                  <Input
+                    id="login-password"
+                    type="password"
+                    placeholder=" "
+                    required
+                    onFocus={() => setFocusedInput("login-password")}
+                    onBlur={() => setFocusedInput(null)}
+                    className={`peer h-12 bg-background/50 backdrop-blur-sm border-2 transition-all duration-300 ${
+                      focusedInput === "login-password"
+                        ? "border-primary ring-4 ring-primary/20 scale-[1.02] shadow-[0_0_20px_rgba(139,92,246,0.3)]"
+                        : "border-input hover:border-primary/50"
+                    }`}
+                  />
+                  <Label
+                    htmlFor="login-password"
+                    className={`absolute left-3 transition-all duration-300 pointer-events-none ${
+                      focusedInput === "login-password"
+                        ? "-top-2.5 text-xs bg-card px-2 text-primary font-medium"
+                        : "top-3 text-sm text-muted-foreground peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:bg-card peer-[:not(:placeholder-shown)]:px-2"
+                    }`}
                   >
-                    {isLoading ? "Creating account..." : "Create Account"}
+                    Password
+                  </Label>
+                </div>
+
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full h-12 bg-gradient-violet-gold hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(139,92,246,0.4)] transition-all duration-300 font-semibold text-base relative overflow-hidden group"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Signing in...
+                    </>
+                  ) : (
+                    <>
+                      <span className="relative z-10">Sign In</span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/30 to-accent/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                    </>
+                  )}
+                </Button>
+
+                {/* Social Login Divider */}
+                <div className="relative my-6">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-muted-foreground/20" />
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-card px-4 text-muted-foreground">Or continue with</span>
+                  </div>
+                </div>
+
+                {/* Social Login Buttons */}
+                <div className="grid grid-cols-2 gap-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="h-11 border-2 border-primary/40 bg-transparent hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all duration-300"
+                  >
+                    <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                      <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                      <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                      <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                      <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Google
                   </Button>
-                </form>
-              </TabsContent>
-            </Tabs>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="h-11 border-2 border-accent/40 bg-transparent hover:bg-accent/10 hover:border-accent hover:shadow-[0_0_20px_rgba(234,179,8,0.3)] transition-all duration-300"
+                  >
+                    <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                    </svg>
+                    Apple
+                  </Button>
+                </div>
+              </form>
+            ) : (
+              <form onSubmit={handleSignup} className="space-y-6">
+                {/* Name Input with Floating Label */}
+                <div className="relative">
+                  <Input
+                    id="signup-name"
+                    type="text"
+                    placeholder=" "
+                    required
+                    onFocus={() => setFocusedInput("signup-name")}
+                    onBlur={() => setFocusedInput(null)}
+                    className={`peer h-12 bg-background/50 backdrop-blur-sm border-2 transition-all duration-300 ${
+                      focusedInput === "signup-name"
+                        ? "border-accent ring-4 ring-accent/20 scale-[1.02] shadow-[0_0_20px_rgba(234,179,8,0.3)]"
+                        : "border-input hover:border-primary/50"
+                    }`}
+                  />
+                  <Label
+                    htmlFor="signup-name"
+                    className={`absolute left-3 transition-all duration-300 pointer-events-none ${
+                      focusedInput === "signup-name"
+                        ? "-top-2.5 text-xs bg-card px-2 text-accent font-medium"
+                        : "top-3 text-sm text-muted-foreground peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:bg-card peer-[:not(:placeholder-shown)]:px-2"
+                    }`}
+                  >
+                    Full Name
+                  </Label>
+                </div>
+
+                {/* Email Input with Floating Label */}
+                <div className="relative">
+                  <Input
+                    id="signup-email"
+                    type="email"
+                    placeholder=" "
+                    required
+                    onFocus={() => setFocusedInput("signup-email")}
+                    onBlur={() => setFocusedInput(null)}
+                    className={`peer h-12 bg-background/50 backdrop-blur-sm border-2 transition-all duration-300 ${
+                      focusedInput === "signup-email"
+                        ? "border-accent ring-4 ring-accent/20 scale-[1.02] shadow-[0_0_20px_rgba(234,179,8,0.3)]"
+                        : "border-input hover:border-primary/50"
+                    }`}
+                  />
+                  <Label
+                    htmlFor="signup-email"
+                    className={`absolute left-3 transition-all duration-300 pointer-events-none ${
+                      focusedInput === "signup-email"
+                        ? "-top-2.5 text-xs bg-card px-2 text-accent font-medium"
+                        : "top-3 text-sm text-muted-foreground peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:bg-card peer-[:not(:placeholder-shown)]:px-2"
+                    }`}
+                  >
+                    Email Address
+                  </Label>
+                </div>
+
+                {/* Password Input with Floating Label */}
+                <div className="relative">
+                  <Input
+                    id="signup-password"
+                    type="password"
+                    placeholder=" "
+                    required
+                    onFocus={() => setFocusedInput("signup-password")}
+                    onBlur={() => setFocusedInput(null)}
+                    className={`peer h-12 bg-background/50 backdrop-blur-sm border-2 transition-all duration-300 ${
+                      focusedInput === "signup-password"
+                        ? "border-primary ring-4 ring-primary/20 scale-[1.02] shadow-[0_0_20px_rgba(139,92,246,0.3)]"
+                        : "border-input hover:border-primary/50"
+                    }`}
+                  />
+                  <Label
+                    htmlFor="signup-password"
+                    className={`absolute left-3 transition-all duration-300 pointer-events-none ${
+                      focusedInput === "signup-password"
+                        ? "-top-2.5 text-xs bg-card px-2 text-primary font-medium"
+                        : "top-3 text-sm text-muted-foreground peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:bg-card peer-[:not(:placeholder-shown)]:px-2"
+                    }`}
+                  >
+                    Password
+                  </Label>
+                </div>
+
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full h-12 bg-gradient-violet-gold hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(139,92,246,0.4)] transition-all duration-300 font-semibold text-base relative overflow-hidden group"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Creating account...
+                    </>
+                  ) : (
+                    <>
+                      <span className="relative z-10">Create Account</span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/30 to-accent/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                    </>
+                  )}
+                </Button>
+
+                {/* Social Login Divider */}
+                <div className="relative my-6">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-muted-foreground/20" />
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-card px-4 text-muted-foreground">Or continue with</span>
+                  </div>
+                </div>
+
+                {/* Social Login Buttons */}
+                <div className="grid grid-cols-2 gap-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="h-11 border-2 border-primary/40 bg-transparent hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all duration-300"
+                  >
+                    <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                      <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                      <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                      <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                      <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Google
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="h-11 border-2 border-accent/40 bg-transparent hover:bg-accent/10 hover:border-accent hover:shadow-[0_0_20px_rgba(234,179,8,0.3)] transition-all duration-300"
+                  >
+                    <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                    </svg>
+                    Apple
+                  </Button>
+                </div>
+              </form>
+            )}
           </CardContent>
         </Card>
       </div>
+
+      {/* Success Modal */}
+      <Dialog open={showSuccessModal} onOpenChange={setShowSuccessModal}>
+        <DialogContent className="sm:max-w-md bg-card/95 backdrop-blur-glass border-2 border-primary/30">
+          <div className="flex flex-col items-center justify-center py-8 space-y-4 animate-fade-in">
+            <div className="relative">
+              <CheckCircle2 className="w-20 h-20 text-accent animate-pulse-glow" />
+              <div className="absolute inset-0 bg-accent/20 rounded-full blur-xl" />
+            </div>
+            <h3 className="text-2xl font-display font-bold bg-gradient-violet-gold bg-clip-text text-transparent">
+              Welcome {activeTab === "login" ? "back" : ""} to FaithApp!
+            </h3>
+            <p className="text-muted-foreground text-center">
+              {activeTab === "login" 
+                ? "You've been signed in successfully."
+                : "Your account has been created successfully."}
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -92,6 +92,23 @@ export default {
           "0%, 100%": { boxShadow: "0 0 20px hsl(var(--primary) / 0.3)" },
           "50%": { boxShadow: "0 0 30px hsl(var(--primary) / 0.5)" },
         },
+        "float": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+        "particle-float": {
+          "0%": { transform: "translate(0, 0) scale(0)", opacity: "0" },
+          "50%": { opacity: "0.8" },
+          "100%": { transform: "translate(var(--tx), var(--ty)) scale(1)", opacity: "0" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { boxShadow: "0 0 20px hsl(var(--accent) / 0.4)" },
+          "50%": { boxShadow: "0 0 40px hsl(var(--accent) / 0.6)" },
+        },
+        "tab-slide": {
+          from: { transform: "translateX(var(--tab-from))" },
+          to: { transform: "translateX(var(--tab-to))" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -99,6 +116,10 @@ export default {
         "fade-in": "fade-in 0.5s ease-out",
         "slide-in": "slide-in 0.3s ease-out",
         "glow": "glow 2s ease-in-out infinite",
+        "float": "float 6s ease-in-out infinite",
+        "particle-float": "particle-float 8s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "tab-slide": "tab-slide 0.3s ease-out",
       },
       backdropBlur: {
         glass: "12px",
@@ -106,6 +127,8 @@ export default {
       backgroundImage: {
         "gradient-spiritual": "var(--gradient-spiritual)",
         "gradient-gold": "var(--gradient-gold)",
+        "gradient-violet-gold": "var(--gradient-violet-gold)",
+        "gradient-auth-bg": "var(--gradient-auth-bg)",
       },
       boxShadow: {
         glow: "var(--shadow-glow)",
