@@ -36,8 +36,8 @@ export const MainLayout = () => {
         </div>
       </main>
 
-      <Footer />
       <MiniPlayer />
+      <Footer />
       <ScrollToTop />
     </div>
   );
