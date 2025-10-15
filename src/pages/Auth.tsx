@@ -45,30 +45,10 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-auth-bg flex items-center justify-center p-4">
-      {/* Animated Background Particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 bg-accent/30 rounded-full blur-sm animate-particle-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 8}s`,
-              animationDuration: `${8 + Math.random() * 4}s`,
-              // @ts-ignore
-              '--tx': `${(Math.random() - 0.5) * 200}px`,
-              '--ty': `${-100 - Math.random() * 200}px`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Blurred Bokeh Texture Overlay */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-primary/30 rounded-full blur-[120px] animate-float" />
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent/30 rounded-full blur-[120px] animate-float" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-navy/30 rounded-full blur-[120px] animate-float" style={{ animationDelay: '4s' }} />
+      {/* Simplified Background Effects */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-primary/40 rounded-full blur-[120px] animate-float" />
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent/40 rounded-full blur-[120px] animate-float" style={{ animationDelay: '3s' }} />
       </div>
 
       <div className="w-full max-w-md relative z-10 animate-fade-in">
@@ -82,37 +62,29 @@ const Auth = () => {
           </p>
         </div>
 
-        {/* Glass Morphic Card */}
-        <Card className="backdrop-blur-glass border-2 relative overflow-hidden group hover:shadow-[var(--border-glow)] transition-all duration-500"
-          style={{
-            background: 'rgba(255, 255, 255, 0.05)',
-            borderColor: 'rgba(180, 140, 255, 0.3)',
-            boxShadow: 'var(--shadow-inner), 0 8px 32px rgba(0, 0, 0, 0.4)',
-          }}
-        >
-          {/* Animated Border Glow */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+        {/* Simplified Glass Card */}
+        <Card className="backdrop-blur-glass border border-primary/30 relative overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_40px_rgba(139,92,246,0.3)] transition-all duration-500 bg-card/40">
           
           <CardContent className="p-8 relative z-10">
-            {/* Custom Tabs */}
+            {/* Elegant Tab Toggle */}
             <div className="relative mb-8">
-              <div className="flex gap-2 bg-muted/30 p-1 rounded-lg backdrop-blur-sm">
+              <div className="flex gap-1 bg-muted/20 p-1 rounded-lg backdrop-blur-sm">
                 <button
                   onClick={() => setActiveTab("login")}
-                  className={`flex-1 py-3 px-4 rounded-md font-medium transition-all duration-300 ${
+                  className={`flex-1 py-2.5 px-4 rounded-md font-medium transition-all duration-300 ${
                     activeTab === "login"
-                      ? "bg-gradient-violet-gold text-white shadow-lg"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      ? "bg-primary text-primary-foreground shadow-[0_0_20px_rgba(139,92,246,0.3)]"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   Login
                 </button>
                 <button
                   onClick={() => setActiveTab("signup")}
-                  className={`flex-1 py-3 px-4 rounded-md font-medium transition-all duration-300 ${
+                  className={`flex-1 py-2.5 px-4 rounded-md font-medium transition-all duration-300 ${
                     activeTab === "signup"
-                      ? "bg-gradient-violet-gold text-white shadow-lg"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      ? "bg-primary text-primary-foreground shadow-[0_0_20px_rgba(139,92,246,0.3)]"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   Sign Up
@@ -131,10 +103,10 @@ const Auth = () => {
                     required
                     onFocus={() => setFocusedInput("login-email")}
                     onBlur={() => setFocusedInput(null)}
-                    className={`peer h-12 bg-background/50 backdrop-blur-sm border-2 transition-all duration-300 ${
+                    className={`peer h-11 bg-background/40 backdrop-blur-sm border transition-all duration-300 ${
                       focusedInput === "login-email"
-                        ? "border-accent ring-4 ring-accent/20 scale-[1.02] shadow-[0_0_20px_rgba(234,179,8,0.3)]"
-                        : "border-input hover:border-primary/50"
+                        ? "border-primary shadow-[0_0_15px_rgba(139,92,246,0.3)]"
+                        : "border-input/50"
                     }`}
                   />
                   <Label
@@ -158,10 +130,10 @@ const Auth = () => {
                     required
                     onFocus={() => setFocusedInput("login-password")}
                     onBlur={() => setFocusedInput(null)}
-                    className={`peer h-12 bg-background/50 backdrop-blur-sm border-2 transition-all duration-300 ${
+                    className={`peer h-11 bg-background/40 backdrop-blur-sm border transition-all duration-300 ${
                       focusedInput === "login-password"
-                        ? "border-primary ring-4 ring-primary/20 scale-[1.02] shadow-[0_0_20px_rgba(139,92,246,0.3)]"
-                        : "border-input hover:border-primary/50"
+                        ? "border-primary shadow-[0_0_15px_rgba(139,92,246,0.3)]"
+                        : "border-input/50"
                     }`}
                   />
                   <Label
@@ -180,39 +152,36 @@ const Auth = () => {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full h-12 bg-gradient-violet-gold hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(139,92,246,0.4)] transition-all duration-300 font-semibold text-base relative overflow-hidden group"
+                  className="w-full h-11 bg-primary hover:bg-primary/90 shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] transition-all duration-300 font-medium"
                 >
                   {isLoading ? (
                     <>
-                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Signing in...
                     </>
                   ) : (
-                    <>
-                      <span className="relative z-10">Sign In</span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/30 to-accent/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                    </>
+                    "Sign In"
                   )}
                 </Button>
 
                 {/* Social Login Divider */}
-                <div className="relative my-6">
+                <div className="relative my-5">
                   <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-muted-foreground/20" />
+                    <div className="w-full border-t border-border" />
                   </div>
-                  <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-card px-4 text-muted-foreground">Or continue with</span>
+                  <div className="relative flex justify-center text-xs">
+                    <span className="bg-card px-3 text-muted-foreground">Or continue with</span>
                   </div>
                 </div>
 
                 {/* Social Login Buttons */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3">
                   <Button
                     type="button"
                     variant="outline"
-                    className="h-11 border-2 border-primary/40 bg-transparent hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all duration-300"
+                    className="h-10 border-primary/30 bg-transparent hover:bg-primary/10 hover:border-primary transition-all"
                   >
-                    <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
                       <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                       <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                       <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -223,9 +192,9 @@ const Auth = () => {
                   <Button
                     type="button"
                     variant="outline"
-                    className="h-11 border-2 border-accent/40 bg-transparent hover:bg-accent/10 hover:border-accent hover:shadow-[0_0_20px_rgba(234,179,8,0.3)] transition-all duration-300"
+                    className="h-10 border-primary/30 bg-transparent hover:bg-primary/10 hover:border-primary transition-all"
                   >
-                    <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                    <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
                     </svg>
                     Apple
@@ -243,10 +212,10 @@ const Auth = () => {
                     required
                     onFocus={() => setFocusedInput("signup-name")}
                     onBlur={() => setFocusedInput(null)}
-                    className={`peer h-12 bg-background/50 backdrop-blur-sm border-2 transition-all duration-300 ${
+                    className={`peer h-11 bg-background/40 backdrop-blur-sm border transition-all duration-300 ${
                       focusedInput === "signup-name"
-                        ? "border-accent ring-4 ring-accent/20 scale-[1.02] shadow-[0_0_20px_rgba(234,179,8,0.3)]"
-                        : "border-input hover:border-primary/50"
+                        ? "border-primary shadow-[0_0_15px_rgba(139,92,246,0.3)]"
+                        : "border-input/50"
                     }`}
                   />
                   <Label
@@ -270,10 +239,10 @@ const Auth = () => {
                     required
                     onFocus={() => setFocusedInput("signup-email")}
                     onBlur={() => setFocusedInput(null)}
-                    className={`peer h-12 bg-background/50 backdrop-blur-sm border-2 transition-all duration-300 ${
+                    className={`peer h-11 bg-background/40 backdrop-blur-sm border transition-all duration-300 ${
                       focusedInput === "signup-email"
-                        ? "border-accent ring-4 ring-accent/20 scale-[1.02] shadow-[0_0_20px_rgba(234,179,8,0.3)]"
-                        : "border-input hover:border-primary/50"
+                        ? "border-primary shadow-[0_0_15px_rgba(139,92,246,0.3)]"
+                        : "border-input/50"
                     }`}
                   />
                   <Label
@@ -297,10 +266,10 @@ const Auth = () => {
                     required
                     onFocus={() => setFocusedInput("signup-password")}
                     onBlur={() => setFocusedInput(null)}
-                    className={`peer h-12 bg-background/50 backdrop-blur-sm border-2 transition-all duration-300 ${
+                    className={`peer h-11 bg-background/40 backdrop-blur-sm border transition-all duration-300 ${
                       focusedInput === "signup-password"
-                        ? "border-primary ring-4 ring-primary/20 scale-[1.02] shadow-[0_0_20px_rgba(139,92,246,0.3)]"
-                        : "border-input hover:border-primary/50"
+                        ? "border-primary shadow-[0_0_15px_rgba(139,92,246,0.3)]"
+                        : "border-input/50"
                     }`}
                   />
                   <Label
@@ -349,9 +318,9 @@ const Auth = () => {
                   <Button
                     type="button"
                     variant="outline"
-                    className="h-11 border-2 border-primary/40 bg-transparent hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all duration-300"
+                    className="h-10 border-primary/30 bg-transparent hover:bg-primary/10 hover:border-primary transition-all"
                   >
-                    <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
                       <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                       <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                       <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -362,9 +331,9 @@ const Auth = () => {
                   <Button
                     type="button"
                     variant="outline"
-                    className="h-11 border-2 border-accent/40 bg-transparent hover:bg-accent/10 hover:border-accent hover:shadow-[0_0_20px_rgba(234,179,8,0.3)] transition-all duration-300"
+                    className="h-10 border-primary/30 bg-transparent hover:bg-primary/10 hover:border-primary transition-all"
                   >
-                    <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                    <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
                     </svg>
                     Apple
