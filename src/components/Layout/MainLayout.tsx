@@ -5,9 +5,21 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { MiniPlayer } from "./MiniPlayer";
 import { ScrollToTop } from "./ScrollToTop";
+import { ProfileDrawer } from "./ProfileDrawer";
 
 export const MainLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [profileDrawerOpen, setProfileDrawerOpen] = useState(false);
+
+  // Mock user data - replace with actual auth state
+  const user = {
+    name: "John Doe",
+    email: "john.doe@faithapp.com",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
+    role: "Community Member",
+    joinedDate: "March 2024",
+    isVerified: true,
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -24,6 +36,16 @@ export const MainLayout = () => {
         isOpen={sidebarOpen}
         onToggle={() => {}}
         onClose={() => setSidebarOpen(false)}
+        onProfileClick={() => {
+          setSidebarOpen(false);
+          setProfileDrawerOpen(true);
+        }}
+        user={user}
+      />
+      <ProfileDrawer
+        isOpen={profileDrawerOpen}
+        onClose={() => setProfileDrawerOpen(false)}
+        user={user}
       />
       <Header 
         sidebarCollapsed={false}
