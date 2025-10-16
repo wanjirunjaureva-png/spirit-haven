@@ -9,7 +9,7 @@ const AIChat = () => {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: "Welcome! I'm your AI spiritual companion. How can I assist you in your faith journey today?",
+      content: "Welcome! I'm here to walk alongside you in your faith journey. How can I support you today?",
     },
   ]);
 
@@ -37,9 +37,9 @@ const AIChat = () => {
       <div>
         <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
           <Sparkles className="h-8 w-8 text-accent" />
-          AI Assistant
+          Your Faith Companion
         </h1>
-        <p className="text-muted-foreground">Your personal spiritual companion</p>
+        <p className="text-muted-foreground">Find prayer reflections and guidance for today</p>
       </div>
 
       {/* Daily Suggestions */}

@@ -32,7 +32,7 @@ const navItems = [
   { icon: BookOpen, label: "Bible Study", path: "/bible-study" },
   { icon: Video, label: "Media", path: "/media" },
   { icon: Users, label: "Community", path: "/community" },
-  { icon: MessageSquare, label: "AI Assistant", path: "/ai-chat" },
+  { icon: MessageSquare, label: "Faith Companion", path: "/ai-chat" },
   { icon: Book, label: "Bible", path: "/bible" },
   { icon: Calendar, label: "Events", path: "/events" },
   { icon: FileText, label: "Journal", path: "/journal" },

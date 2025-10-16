@@ -149,16 +149,16 @@ const Dashboard = () => {
           </CardContent>
         </Card>
 
-        {/* AI Chat Suggestion */}
+        {/* Faith Companion */}
         <Card className="bg-gradient-spiritual text-primary-foreground shadow-glow">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <MessageSquare className="h-5 w-5" />
-              AI Assistant
+              Faith Companion
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm mb-3">Get personalized prayer suggestions and biblical guidance</p>
+            <p className="text-sm mb-3">Discover prayer reflections and guidance tailored to your journey</p>
             <Button variant="secondary" size="sm" className="w-full">Start Conversation</Button>
           </CardContent>
         </Card>

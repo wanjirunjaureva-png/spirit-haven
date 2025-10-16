@@ -39,12 +39,12 @@ const Journal = () => {
         </Button>
       </div>
 
-      {/* AI Reflection */}
+      {/* Companion Reflection */}
       <Card className="bg-gradient-spiritual text-primary-foreground shadow-glow">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Sparkles className="h-5 w-5" />
-            AI Reflection
+            Companion Reflection
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -77,7 +77,7 @@ const Journal = () => {
               </Button>
               <Button variant="outline" size="sm">
                 <Sparkles className="h-4 w-4 mr-2" />
-                AI Suggestions
+                Companion Suggestions
               </Button>
             </div>
             <Button className="shadow-soft">Save Entry</Button>
