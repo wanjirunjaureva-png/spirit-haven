@@ -3,11 +3,9 @@ import { Outlet } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { EnhancedMiniPlayer } from "./EnhancedMiniPlayer";
-import { VideoPlayerDialog } from "./VideoPlayerDialog";
+import { MiniPlayer } from "./MiniPlayer";
 import { ScrollToTop } from "./ScrollToTop";
 import { ProfileDrawer } from "./ProfileDrawer";
-import { MediaProvider } from "@/contexts/MediaContext";
 
 export const MainLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -24,48 +22,45 @@ export const MainLayout = () => {
   };
 
   return (
-    <MediaProvider>
-      <div className="min-h-screen bg-background">
-        {/* Backdrop */}
-        {sidebarOpen && (
-          <div 
-            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-30 transition-opacity duration-500 ease-in-out"
-            onClick={() => setSidebarOpen(false)}
-          />
-        )}
-        
-        <Sidebar 
-          isCollapsed={false} 
-          isOpen={sidebarOpen}
-          onToggle={() => {}}
-          onClose={() => setSidebarOpen(false)}
-          onProfileClick={() => {
-            setSidebarOpen(false);
-            setProfileDrawerOpen(true);
-          }}
-          user={user}
+    <div className="min-h-screen bg-background">
+      {/* Backdrop */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-30 transition-opacity duration-500 ease-in-out"
+          onClick={() => setSidebarOpen(false)}
         />
-        <ProfileDrawer
-          isOpen={profileDrawerOpen}
-          onClose={() => setProfileDrawerOpen(false)}
-          user={user}
-        />
-        <Header 
-          sidebarCollapsed={false}
-          onMenuClick={() => setSidebarOpen(true)}
-        />
-        
-        <main className="pt-16 pb-32 transition-all duration-300 animate-fade-in">
-          <div className="p-6">
-            <Outlet />
-          </div>
-        </main>
+      )}
+      
+      <Sidebar 
+        isCollapsed={false} 
+        isOpen={sidebarOpen}
+        onToggle={() => {}}
+        onClose={() => setSidebarOpen(false)}
+        onProfileClick={() => {
+          setSidebarOpen(false);
+          setProfileDrawerOpen(true);
+        }}
+        user={user}
+      />
+      <ProfileDrawer
+        isOpen={profileDrawerOpen}
+        onClose={() => setProfileDrawerOpen(false)}
+        user={user}
+      />
+      <Header 
+        sidebarCollapsed={false}
+        onMenuClick={() => setSidebarOpen(true)}
+      />
+      
+      <main className="pt-16 pb-32 transition-all duration-300 animate-fade-in">
+        <div className="p-6">
+          <Outlet />
+        </div>
+      </main>
 
-        <EnhancedMiniPlayer />
-        <VideoPlayerDialog />
-        <Footer />
-        <ScrollToTop />
-      </div>
-    </MediaProvider>
+      <MiniPlayer />
+      <Footer />
+      <ScrollToTop />
+    </div>
   );
 };
